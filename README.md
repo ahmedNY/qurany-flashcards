@@ -46,3 +46,15 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 
 Project Link: [https://github.com/Yousif-GO/qurany-flashcards](https://github.com/Yousif-GO/qurany-flashcards)
+
+## License
+
+This project is licensed under a Non-Commercial, Non-Profit Use License - see the [LICENSE.md](LICENSE.md) file for details.
+
+- ✅ Free for personal use
+- ✅ Free for non-profit organizations
+- ✅ Must maintain Islamic ethics
+- ❌ No commercial use
+- ❌ No reselling
+- ❌ No ads
+- ❌ No closed-source distributions

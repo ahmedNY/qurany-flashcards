@@ -22,6 +22,9 @@ import '../screens/quran_room_screen.dart';
 import 'dart:async'; // Add this import for StreamController
 import '../widgets/feedback_dialog.dart';
 import '../firebase_options.dart';
+import '../widgets/comments_dialog.dart';
+import '../services/comments_service.dart';
+import '../models/comment.dart';
 
 enum AppLanguage {
   arabic,
@@ -2534,6 +2537,90 @@ class _SurahPageState extends State<SurahPage> {
                                                     textAlign:
                                                         TextAlign.justify,
                                                   ),
+                                                  // Add this new section for comments
+                                                  SizedBox(height: 8),
+                                                  if (widget.groupName !=
+                                                      null) // Only show comments for group reading
+                                                    Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment.end,
+                                                      children: [
+                                                        StreamBuilder<
+                                                            List<Comment>>(
+                                                          stream: CommentsService()
+                                                              .getCommentsStream(
+                                                            pageNumber: widget
+                                                                .pageNumber,
+                                                            groupId: widget
+                                                                .groupName!,
+                                                          ),
+                                                          builder: (context,
+                                                              snapshot) {
+                                                            final commentCount =
+                                                                snapshot.data
+                                                                        ?.length ??
+                                                                    0;
+                                                            return TextButton
+                                                                .icon(
+                                                              icon: Icon(
+                                                                Icons
+                                                                    .comment_outlined,
+                                                                color: Color(
+                                                                    0xFF417D7A),
+                                                                size: 20,
+                                                              ),
+                                                              label: Text(
+                                                                'Thoughts : تدبر ($commentCount)',
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Color(
+                                                                      0xFF417D7A),
+                                                                  fontSize: 14,
+                                                                ),
+                                                              ),
+                                                              style: TextButton
+                                                                  .styleFrom(
+                                                                shape:
+                                                                    RoundedRectangleBorder(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              8),
+                                                                  side: BorderSide(
+                                                                      color: Color(
+                                                                          0xFF417D7A),
+                                                                      width: 1),
+                                                                ),
+                                                                padding: EdgeInsets
+                                                                    .symmetric(
+                                                                        horizontal:
+                                                                            12,
+                                                                        vertical:
+                                                                            8),
+                                                              ),
+                                                              onPressed: () {
+                                                                showDialog(
+                                                                  context:
+                                                                      context,
+                                                                  builder:
+                                                                      (context) =>
+                                                                          CommentsDialog(
+                                                                    pageNumber:
+                                                                        widget
+                                                                            .pageNumber,
+                                                                    groupId: widget
+                                                                        .groupName!,
+                                                                    userName: widget
+                                                                            .userName ??
+                                                                        'Anonymous',
+                                                                  ),
+                                                                );
+                                                              },
+                                                            );
+                                                          },
+                                                        ),
+                                                      ],
+                                                    ),
                                                 ],
                                               ],
                                             ),

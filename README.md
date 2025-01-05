@@ -1,6 +1,6 @@
-# quran_flashcards
+# Qurany Cards Pro 🕌
 
-A new Flutter project.
+A free, feature-rich Quran app designed for individual and group reading.
 
 ## Contributing
 
@@ -19,6 +19,71 @@ A new Flutter project.
 5. Add your app to Firebase project
 6. Download and add configuration files
 
+## Features
+
+### 📖 Reading Features
+- Word-by-word translation
+- Beautiful Tajweed coloring system
+- Adjustable font sizes
+- Right-to-left text alignment
+- Progress tracking
+- Beautiful recitations
+
+### 🎨 Tajweed System
+- Color-coded rules for proper recitation:
+  - Necessary Prolongation (مد لازم)
+  - Obligatory Prolongation (مد واجب متصل)
+  - Permissible Prolongation (مد جائز منفصل)
+  - Normal Prolongation (مد طبيعي)
+  - Silent Letters (حروف لا تنطق)
+  - Emphatic R (ra) (تفخيم الراء)
+  - Qalqalah (قلقلة)
+  - Nasalization (غنة)
+  - And more...
+
+### 👥 Group Reading Features
+- Create or join Khatma groups
+- Share groups via direct links
+- Track group progress
+- Add thoughts and reflections (تدبر)
+- Comment system with upvotes
+- Real-time updates
+
+### 🌟 Unique Features
+- No ads
+- No subscription required
+- No payment needed
+- No email registration
+- Offline support
+- Cross-platform compatibility
+
+### 🔄 Sharing System
+- Generate shareable links
+- WhatsApp integration
+- Copy-paste functionality
+- QR code sharing
+
+### 💭 Social Features
+- Comment on verses
+- Share thoughts with group members
+- Upvote helpful comments
+- Group discussions
+
+## Getting Started
+1. Visit https://qurany-flashcards.web.app
+2. Choose reading mode:
+   - Solo reading: Click 📚 icon
+   - Group reading: Click "Read with Others"
+
+## Group Reading Guide
+1. Create a new group:
+   - Enter group name
+   - Enter Khatma name
+   - Share with friends
+2. Join existing group:
+   - Use direct link
+   - Or enter group details manually
+
 ## Features in Development
 
 - [ ] Offline mode
@@ -27,25 +92,15 @@ A new Flutter project.
 - [ ] Custom reading plans
 - [ ] Advanced search functionality
 
+## Privacy
+- No personal data collected
+- No tracking
+- No advertisements
+- Complete privacy respected
+
 ## Support
 
 For support, email [quran.flashcards.dev@gmail.com] or open an issue in the repository.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
-
-- Quran text source: [Source Name]
-- Audio recitations: [Source Name]
-- Contributors and testers
-
-## Contact
-
-
-
-Project Link: [https://github.com/Yousif-GO/qurany-flashcards](https://github.com/Yousif-GO/qurany-flashcards)
 
 ## License
 
@@ -58,3 +113,17 @@ This project is licensed under a Non-Commercial, Non-Profit Use License - see th
 - ❌ No reselling
 - ❌ No ads
 - ❌ No closed-source distributions
+
+## Acknowledgments
+
+- Quran text source: [https://globalquran.com/download/]
+- Audio recitations: [https://everyayah.com/]    
+- Contributors and testers 
+
+## Contact
+
+Project Link: [https://github.com/Yousif-GO/qurany-flashcards](https://github.com/Yousif-GO/qurany-flashcards)
+
+## Support
+
+Made with ❤️ for the Ummah. Please make dua for the developers ,contributors and testers.

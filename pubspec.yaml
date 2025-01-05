@@ -54,6 +54,8 @@ flutter:
     - assets/images/tutorial.gif
     - assets/images/modes.gif
     - assets/images/w.png
+    - assets/Txt files/quran-tajweed-numbered.txt
+    - assets/Txt files/page_ayah_count.txt
   fonts:
     - family: _Othmani
       fonts:

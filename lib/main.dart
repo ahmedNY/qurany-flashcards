@@ -23,6 +23,9 @@ import 'dart:async'; // Add this import for StreamController
 import '../widgets/feedback_dialog.dart';
 import '../firebase_options.dart';
 import '../services/tajweed_parser.dart';
+import '../services/comments_service.dart';
+import '../widgets/comments_dialog.dart';
+import '../models/comment.dart';
 
 enum AppLanguage {
   arabic,
@@ -2525,41 +2528,126 @@ class _SurahPageState extends State<SurahPage> {
                                                 Container(
                                                   child: Column(
                                                     children: [
-                                                      ElevatedButton.icon(
-                                                        icon: Icon(
-                                                          _showTajweedMenu
-                                                              ? Icons
-                                                                  .visibility_off
-                                                              : Icons
-                                                                  .visibility,
-                                                          color:
-                                                              Color(0xFF417D7A),
-                                                        ),
-                                                        label: Text(
-                                                          _showTajweedMenu
-                                                              ? 'Hide Tajweed Menu'
-                                                              : 'Show Tajweed Menu',
-                                                          style: TextStyle(
-                                                              color: Color(
-                                                                  0xFF417D7A)),
-                                                        ),
-                                                        style: ElevatedButton
-                                                            .styleFrom(
-                                                          backgroundColor:
-                                                              Colors
-                                                                  .transparent,
-                                                          elevation: 0,
-                                                          side: BorderSide(
+                                                      Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        children: [
+                                                          ElevatedButton.icon(
+                                                            icon: Icon(
+                                                              _showTajweedMenu
+                                                                  ? Icons
+                                                                      .visibility_off
+                                                                  : Icons
+                                                                      .visibility,
                                                               color: Color(
                                                                   0xFF417D7A),
-                                                              width: 2),
-                                                        ),
-                                                        onPressed: () {
-                                                          setState(() {
-                                                            _showTajweedMenu =
-                                                                !_showTajweedMenu;
-                                                          });
-                                                        },
+                                                            ),
+                                                            label: Text(
+                                                              _showTajweedMenu
+                                                                  ? 'Hide Tajweed Menu'
+                                                                  : 'Show Tajweed Menu',
+                                                              style: TextStyle(
+                                                                  color: Color(
+                                                                      0xFF417D7A)),
+                                                            ),
+                                                            style:
+                                                                ElevatedButton
+                                                                    .styleFrom(
+                                                              backgroundColor:
+                                                                  Colors
+                                                                      .transparent,
+                                                              elevation: 0,
+                                                              side: BorderSide(
+                                                                  color: Color(
+                                                                      0xFF417D7A),
+                                                                  width: 2),
+                                                            ),
+                                                            onPressed: () {
+                                                              setState(() {
+                                                                _showTajweedMenu =
+                                                                    !_showTajweedMenu;
+                                                              });
+                                                            },
+                                                          ),
+                                                          if (widget
+                                                                  .groupName !=
+                                                              null)
+                                                            StreamBuilder<
+                                                                List<Comment>>(
+                                                              stream: CommentsService()
+                                                                  .getCommentsStream(
+                                                                pageNumber: widget
+                                                                    .pageNumber,
+                                                                groupId: widget
+                                                                    .groupName!,
+                                                              ),
+                                                              builder: (context,
+                                                                  snapshot) {
+                                                                final commentCount =
+                                                                    snapshot.data
+                                                                            ?.length ??
+                                                                        0;
+                                                                return TextButton
+                                                                    .icon(
+                                                                  icon: Icon(
+                                                                    Icons
+                                                                        .comment_outlined,
+                                                                    color: Color(
+                                                                        0xFF417D7A),
+                                                                    size: 20,
+                                                                  ),
+                                                                  label: Text(
+                                                                    'Thoughts : تدبر ($commentCount)',
+                                                                    style:
+                                                                        TextStyle(
+                                                                      color: Color(
+                                                                          0xFF417D7A),
+                                                                      fontSize:
+                                                                          14,
+                                                                    ),
+                                                                  ),
+                                                                  style: TextButton
+                                                                      .styleFrom(
+                                                                    shape:
+                                                                        RoundedRectangleBorder(
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              8),
+                                                                      side: BorderSide(
+                                                                          color: Color(
+                                                                              0xFF417D7A),
+                                                                          width:
+                                                                              1),
+                                                                    ),
+                                                                    padding: EdgeInsets.symmetric(
+                                                                        horizontal:
+                                                                            12,
+                                                                        vertical:
+                                                                            8),
+                                                                  ),
+                                                                  onPressed:
+                                                                      () {
+                                                                    showDialog(
+                                                                      context:
+                                                                          context,
+                                                                      builder:
+                                                                          (context) =>
+                                                                              CommentsDialog(
+                                                                        pageNumber:
+                                                                            widget.pageNumber,
+                                                                        groupId:
+                                                                            widget.groupName!,
+                                                                        userName:
+                                                                            widget.userName ??
+                                                                                'Anonymous',
+                                                                      ),
+                                                                    );
+                                                                  },
+                                                                );
+                                                              },
+                                                            ),
+                                                        ],
                                                       ),
                                                       if (_showTajweedMenu) ...[
                                                         SizedBox(height: 8),

@@ -1,4 +1,4 @@
-# Qurany Cards Pro 🕌
+# Qurany Cards Pro 🕌 [[qurany-flashcards.web.app](https://qurany-flashcards.web.app/)]
 
 A free, feature-rich Quran app designed for individual and group reading.
 

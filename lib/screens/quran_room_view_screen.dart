@@ -23,11 +23,11 @@ class QuranRoomViewScreen extends StatelessWidget {
         stream: FirebaseService().getRoomStream(groupName, khatmaName),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
 
           // TODO: Display room data and reading progress
-          return Center(child: Text('Room View Coming Soon'));
+          return const Center(child: Text('Room View Coming Soon'));
         },
       ),
     );

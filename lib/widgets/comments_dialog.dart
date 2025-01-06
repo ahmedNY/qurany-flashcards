@@ -28,7 +28,7 @@ class _CommentsDialogState extends State<CommentsDialog> {
       child: Scaffold(
         appBar: AppBar(
           leading: IconButton(
-            icon: Icon(Icons.close),
+            icon: const Icon(Icons.close),
             onPressed: () => Navigator.pop(context),
           ),
           title: Text('Comments for Page ${widget.pageNumber}'),
@@ -69,7 +69,7 @@ class _CommentsDialogState extends State<CommentsDialog> {
                       itemBuilder: (context, index) {
                         final comment = comments[index];
                         return Card(
-                          margin: EdgeInsets.only(bottom: 8),
+                          margin: const EdgeInsets.only(bottom: 8),
                           child: ListTile(
                             title: Text(
                               comment.text,
@@ -82,7 +82,7 @@ class _CommentsDialogState extends State<CommentsDialog> {
                             ),
                             subtitle: Text(
                               '${comment.userName} - ${_formatDate(comment.timestamp)}',
-                              style: TextStyle(fontSize: 12),
+                              style: const TextStyle(fontSize: 12),
                             ),
                             leading: SizedBox(
                               width: 40,
@@ -101,7 +101,7 @@ class _CommentsDialogState extends State<CommentsDialog> {
                                             : Colors.grey,
                                         size: 16,
                                       ),
-                                      constraints: BoxConstraints(
+                                      constraints: const BoxConstraints(
                                         minWidth: 20,
                                         minHeight: 20,
                                       ),
@@ -119,7 +119,7 @@ class _CommentsDialogState extends State<CommentsDialog> {
                                     height: 16,
                                     child: Text(
                                       '${comment.upvotes}',
-                                      style: TextStyle(fontSize: 12),
+                                      style: const TextStyle(fontSize: 12),
                                     ),
                                   ),
                                 ],
@@ -127,8 +127,8 @@ class _CommentsDialogState extends State<CommentsDialog> {
                             ),
                             trailing: comment.userName == widget.userName
                                 ? IconButton(
-                                    icon: Icon(Icons.delete, size: 16),
-                                    constraints: BoxConstraints(
+                                    icon: const Icon(Icons.delete, size: 16),
+                                    constraints: const BoxConstraints(
                                       minWidth: 20,
                                       minHeight: 20,
                                     ),
@@ -144,10 +144,10 @@ class _CommentsDialogState extends State<CommentsDialog> {
                 ),
               ),
               Container(
-                padding: EdgeInsets.fromLTRB(16, 8, 16, 8),
+                padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
                 decoration: BoxDecoration(
                   color: Theme.of(context).cardColor,
-                  boxShadow: [
+                  boxShadow: const [
                     BoxShadow(
                       color: Colors.black12,
                       blurRadius: 4,
@@ -160,7 +160,7 @@ class _CommentsDialogState extends State<CommentsDialog> {
                       Expanded(
                         child: TextField(
                           controller: _commentController,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             hintText: 'Add a comment...',
                             border: OutlineInputBorder(),
                             filled: true,
@@ -173,9 +173,9 @@ class _CommentsDialogState extends State<CommentsDialog> {
                           textInputAction: TextInputAction.newline,
                         ),
                       ),
-                      SizedBox(width: 8),
+                      const SizedBox(width: 8),
                       IconButton(
-                        icon: Icon(Icons.send),
+                        icon: const Icon(Icons.send),
                         onPressed: _addComment,
                       ),
                     ],

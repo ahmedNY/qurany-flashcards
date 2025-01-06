@@ -25,7 +25,7 @@ class AyahDisplay extends StatelessWidget {
           padding: const EdgeInsets.all(16.0),
           child: Text(
             ayahData['verse'],
-            style: TextStyle(fontSize: 24),
+            style: const TextStyle(fontSize: 24),
             textDirection: TextDirection.rtl,
           ),
         ),

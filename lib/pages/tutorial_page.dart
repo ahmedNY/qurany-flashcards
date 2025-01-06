@@ -19,7 +19,7 @@ class _TutorialPageState extends State<TutorialPage> {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           child: Column(
             children: [
               Expanded(
@@ -30,15 +30,15 @@ class _TutorialPageState extends State<TutorialPage> {
                       Text(
                         translations.getTranslation('app_tutorial_title',
                             language: widget.selectedLanguage),
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
                           color: Color(0xFF2B4141),
                         ),
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       // Video placeholder
-                      Container(
+                      SizedBox(
                         height: MediaQuery.of(context).size.height * 0.4,
                         width: double.infinity,
                         child: ClipRRect(
@@ -49,7 +49,7 @@ class _TutorialPageState extends State<TutorialPage> {
                           ),
                         ),
                       ),
-                      SizedBox(height: 30),
+                      const SizedBox(height: 30),
                       _buildFeatureSection(
                         icon: Icons.menu_book,
                         title: 'browse_pages_title',
@@ -84,13 +84,13 @@ class _TutorialPageState extends State<TutorialPage> {
                   ),
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(0xFF417D7A),
-                    padding: EdgeInsets.symmetric(vertical: 16),
+                    backgroundColor: const Color(0xFF417D7A),
+                    padding: const EdgeInsets.symmetric(vertical: 16),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -115,7 +115,7 @@ class _TutorialPageState extends State<TutorialPage> {
                       ),
                     );
                   },
-                  child: Text(
+                  child: const Text(
                     'Start Learning',
                     style: TextStyle(
                       fontSize: 18,
@@ -140,15 +140,15 @@ class _TutorialPageState extends State<TutorialPage> {
         widget.selectedLanguage == AppLanguage.urdu;
 
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 12),
+      padding: const EdgeInsets.symmetric(vertical: 12),
       child: Card(
         elevation: 2,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
-          side: BorderSide(color: Color(0xFF417D7A).withOpacity(0.2)),
+          side: BorderSide(color: const Color(0xFF417D7A).withOpacity(0.2)),
         ),
         child: Padding(
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           child: Column(
             crossAxisAlignment:
                 isRTL ? CrossAxisAlignment.end : CrossAxisAlignment.start,
@@ -157,24 +157,24 @@ class _TutorialPageState extends State<TutorialPage> {
                 textDirection: isRTL ? TextDirection.rtl : TextDirection.ltr,
                 children: [
                   Container(
-                    padding: EdgeInsets.all(8),
+                    padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
-                      color: Color(0xFF417D7A).withOpacity(0.1),
+                      color: const Color(0xFF417D7A).withOpacity(0.1),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Icon(
                       icon,
                       size: 24,
-                      color: Color(0xFF417D7A),
+                      color: const Color(0xFF417D7A),
                     ),
                   ),
-                  SizedBox(width: 12),
+                  const SizedBox(width: 12),
                   Expanded(
                     child: Text(
                       translations.getTranslation(title,
                               language: widget.selectedLanguage) ??
                           title,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                         color: Color(0xFF2B4141),
@@ -186,7 +186,7 @@ class _TutorialPageState extends State<TutorialPage> {
                   ),
                 ],
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               if (description is String)
                 Text(
                   translations.getTranslation(description,
@@ -225,7 +225,7 @@ class _TutorialPageState extends State<TutorialPage> {
           textDirection: isRTL ? TextDirection.rtl : TextDirection.ltr,
           textAlign: isRTL ? TextAlign.right : TextAlign.left,
         ),
-        SizedBox(height: 12),
+        const SizedBox(height: 12),
         ...[
           // List of levels
           [
@@ -262,7 +262,7 @@ class _TutorialPageState extends State<TutorialPage> {
           ],
         ]
             .map((level) => Padding(
-                  padding: EdgeInsets.symmetric(vertical: 4),
+                  padding: const EdgeInsets.symmetric(vertical: 4),
                   child: Row(
                     textDirection:
                         isRTL ? TextDirection.rtl : TextDirection.ltr,
@@ -281,7 +281,7 @@ class _TutorialPageState extends State<TutorialPage> {
                   ),
                 ))
             .toList(),
-        SizedBox(height: 12),
+        const SizedBox(height: 12),
         Text(
           translations.getTranslation('srs_explanation',
                   language: widget.selectedLanguage) ??
@@ -306,7 +306,7 @@ class _TutorialPageState extends State<TutorialPage> {
         ...['autoplay', 'first_word', 'progress', 'priority']
             .map(
               (feature) => Padding(
-                padding: EdgeInsets.symmetric(vertical: 4),
+                padding: const EdgeInsets.symmetric(vertical: 4),
                 child: Row(
                   textDirection: isRTL ? TextDirection.rtl : TextDirection.ltr,
                   children: [

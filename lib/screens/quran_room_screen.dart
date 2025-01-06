@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/services.dart';
 import '../services/firebase_service.dart';
-import 'quran_room_view_screen.dart';
 import '../main.dart';
 import 'dart:io' show Platform;
 import 'package:flutter/foundation.dart' show kIsWeb;
@@ -82,8 +81,8 @@ class _QuranRoomScreenState extends State<QuranRoomScreen> {
             centerTitle: true,
             actions: [
               TextButton.icon(
-                icon: Icon(Icons.menu_book, color: Colors.white),
-                label: Text('Read Solo', style: TextStyle(color: Colors.white)),
+                icon: const Icon(Icons.menu_book, color: Colors.white),
+                label: const Text('Read Solo', style: TextStyle(color: Colors.white)),
                 onPressed: () => Navigator.of(context).pushReplacement(
                   MaterialPageRoute(
                     builder: (context) => SimpleList(
@@ -94,9 +93,9 @@ class _QuranRoomScreenState extends State<QuranRoomScreen> {
                 ),
               ),
               TextButton.icon(
-                icon: Icon(Icons.paste, color: Colors.white),
+                icon: const Icon(Icons.paste, color: Colors.white),
                 label:
-                    Text('Fill Details', style: TextStyle(color: Colors.white)),
+                    const Text('Fill Details', style: TextStyle(color: Colors.white)),
                 onPressed: _handlePastedUrl,
               ),
             ],
@@ -105,9 +104,9 @@ class _QuranRoomScreenState extends State<QuranRoomScreen> {
             child: Column(
               children: [
                 _buildForm(),
-                Divider(height: 32),
+                const Divider(height: 32),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16),
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Column(
                     children: [
                       Text(
@@ -117,15 +116,15 @@ class _QuranRoomScreenState extends State<QuranRoomScreen> {
                           color: Colors.grey[600],
                         ),
                       ),
-                      SizedBox(height: 8),
+                      const SizedBox(height: 8),
                       OutlinedButton(
                         onPressed: () =>
                             setState(() => _isCreating = !_isCreating),
+                        style: OutlinedButton.styleFrom(
+                          minimumSize: const Size(double.infinity, 48),
+                        ),
                         child: Text(
                             _isCreating ? 'Join Instead' : 'Create New Group'),
-                        style: OutlinedButton.styleFrom(
-                          minimumSize: Size(double.infinity, 48),
-                        ),
                       ),
                     ],
                   ),
@@ -137,7 +136,7 @@ class _QuranRoomScreenState extends State<QuranRoomScreen> {
         if (_isLoading)
           Container(
             color: Colors.black54,
-            child: Center(child: CircularProgressIndicator()),
+            child: const Center(child: CircularProgressIndicator()),
           ),
       ],
     );
@@ -156,7 +155,7 @@ class _QuranRoomScreenState extends State<QuranRoomScreen> {
             _groupNameController.text, _khatmaNameController.text);
         if (exists) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Room already exists')),
+            const SnackBar(content: Text('Room already exists')),
           );
           return;
         }
@@ -175,7 +174,7 @@ class _QuranRoomScreenState extends State<QuranRoomScreen> {
             _groupNameController.text, _khatmaNameController.text);
         if (!exists) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Room does not exist')),
+            const SnackBar(content: Text('Room does not exist')),
           );
           return;
         }
@@ -244,7 +243,7 @@ class _QuranRoomScreenState extends State<QuranRoomScreen> {
         await _firebaseService.checkRoomExists(finalGroup, finalKhatma);
     if (exists) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Room already exists')),
+        const SnackBar(content: Text('Room already exists')),
       );
       return;
     }
@@ -309,8 +308,8 @@ Just read and make dua 🤲''';
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('Share Khatma'),
-        content: Container(
+        title: const Text('Share Khatma'),
+        content: SizedBox(
           width: double.maxFinite,
           height: MediaQuery.of(context).size.height * 0.6, // Fixed height
           child: Column(
@@ -321,11 +320,11 @@ Just read and make dua 🤲''';
                 child: SingleChildScrollView(
                   child: SelectableText(
                     roomInfo,
-                    style: TextStyle(fontSize: 16),
+                    style: const TextStyle(fontSize: 16),
                   ),
                 ),
               ),
-              Divider(height: 24),
+              const Divider(height: 24),
               Wrap(
                 // Use Wrap instead of Row
                 spacing: 8,
@@ -333,8 +332,8 @@ Just read and make dua 🤲''';
                 alignment: WrapAlignment.center,
                 children: [
                   ElevatedButton.icon(
-                    icon: Icon(Icons.copy),
-                    label: Text('Copy'),
+                    icon: const Icon(Icons.copy),
+                    label: const Text('Copy'),
                     onPressed: () => _copyToClipboard(roomInfo),
                   ),
                   if (!kIsWeb && Platform.isAndroid)
@@ -344,9 +343,9 @@ Just read and make dua 🤲''';
                         height: 24,
                         width: 24,
                       ),
-                      label: Text('WhatsApp'),
+                      label: const Text('WhatsApp'),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xFF25D366),
+                        backgroundColor: const Color(0xFF25D366),
                       ),
                       onPressed: () => _shareToWhatsApp(roomInfo),
                     ),
@@ -361,7 +360,7 @@ Just read and make dua 🤲''';
               Navigator.pop(context);
               _onRoomCreated();
             },
-            child: Text('Start Reading'),
+            child: const Text('Start Reading'),
           ),
         ],
       ),
@@ -371,7 +370,7 @@ Just read and make dua 🤲''';
   void _copyToClipboard(String text) {
     Clipboard.setData(ClipboardData(text: text));
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Copied to clipboard!')),
+      const SnackBar(content: Text('Copied to clipboard!')),
     );
   }
 
@@ -401,7 +400,7 @@ Just read and make dua 🤲''';
 
   Widget _buildForm() {
     return Padding(
-      padding: EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(16.0),
       child: Form(
         key: _formKey,
         child: Column(
@@ -411,17 +410,17 @@ Just read and make dua 🤲''';
               label: 'Group Name',
               controller: _groupNameController,
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             _buildTextField(
               label: 'Khatma Name',
               controller: _khatmaNameController,
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             _buildTextField(
               label: 'Your Name',
               controller: _userNameController,
             ),
-            SizedBox(height: 24),
+            const SizedBox(height: 24),
             ElevatedButton(
               onPressed: _handleSubmit,
               child: Text(_isCreating ? 'Create Room' : 'Join Room'),
@@ -447,7 +446,7 @@ Just read and make dua 🤲''';
     setState(() => _isLoading = true);
 
     try {
-      await Future.delayed(Duration(milliseconds: 100));
+      await Future.delayed(const Duration(milliseconds: 100));
 
       final uri = Uri.base;
       print('Current URL: ${uri.toString()}');
@@ -474,7 +473,7 @@ Just read and make dua 🤲''';
           } catch (e) {
             print('Error decoding data: $e');
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('Invalid room code')),
+              const SnackBar(content: Text('Invalid room code')),
             );
           }
         }

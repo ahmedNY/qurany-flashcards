@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class FeedbackDialog extends StatefulWidget {
+  const FeedbackDialog({super.key});
+
   @override
   _FeedbackDialogState createState() => _FeedbackDialogState();
 }
@@ -30,12 +32,12 @@ class _FeedbackDialogState extends State<FeedbackDialog> {
         Navigator.of(context).pop(); // Close dialog after sending
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Could not open email app')),
+          const SnackBar(content: Text('Could not open email app')),
         );
       }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error sending feedback')),
+        const SnackBar(content: Text('Error sending feedback')),
       );
     } finally {
       setState(() => _isSending = false);
@@ -45,16 +47,16 @@ class _FeedbackDialogState extends State<FeedbackDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text('Send Feedback'),
+      title: const Text('Send Feedback'),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text('Help us improve by sharing your thoughts:'),
-          SizedBox(height: 16),
+          const Text('Help us improve by sharing your thoughts:'),
+          const SizedBox(height: 16),
           TextField(
             controller: _feedbackController,
             maxLines: 4,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               hintText: 'Your feedback here...',
               border: OutlineInputBorder(),
               filled: true,
@@ -65,20 +67,20 @@ class _FeedbackDialogState extends State<FeedbackDialog> {
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
-          child: Text('Cancel'),
+          child: const Text('Cancel'),
         ),
         ElevatedButton(
           onPressed: _isSending ? null : _sendFeedback,
           style: ElevatedButton.styleFrom(
-            backgroundColor: Color(0xFF417D7A),
+            backgroundColor: const Color(0xFF417D7A),
           ),
           child: _isSending
-              ? SizedBox(
+              ? const SizedBox(
                   height: 20,
                   width: 20,
                   child: CircularProgressIndicator(strokeWidth: 2),
                 )
-              : Text('Send'),
+              : const Text('Send'),
         ),
       ],
     );

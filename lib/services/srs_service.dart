@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../models/flashcard_model.dart';
 
 class SRSService {
   static final SRSService _instance = SRSService._internal();

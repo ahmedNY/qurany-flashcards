@@ -40,8 +40,8 @@ class _FlashcardPageState extends State<FlashcardPage> {
     for (var entry in pageUnknownAyahs) {
       final parts = entry.split('|');
       final pageNum = int.parse(parts[0]);
-      final numAyahsInPage = int.parse(parts[1]);
-      final indexInPage = int.parse(parts[2]);
+      int.parse(parts[1]);
+      int.parse(parts[2]);
       final surahNum = int.parse(parts[3]);
       final ayahNum = int.parse(parts[4]);
 
@@ -81,7 +81,7 @@ class _FlashcardPageState extends State<FlashcardPage> {
         appBar: AppBar(
           title: Text('Flashcards for Page ${widget.pageNumber}'),
         ),
-        body: Center(
+        body: const Center(
           child: Text('No flashcards scheduled for review.'),
         ),
       );
@@ -99,28 +99,28 @@ class _FlashcardPageState extends State<FlashcardPage> {
           children: [
             Text(
               'Surah ${_surahInfo[currentCard['surahNum']]?['name']} Ayah ${currentCard['ayahNum']}',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             // Display the flashcard content here
             // You can customize this to display the ayah text
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
                 _answerCard(5); // Easy
               },
-              child: Text('Easy'),
+              child: const Text('Easy'),
             ),
             ElevatedButton(
               onPressed: () {
                 _answerCard(3); // Medium
               },
-              child: Text('Medium'),
+              child: const Text('Medium'),
             ),
             ElevatedButton(
               onPressed: () {
                 _answerCard(1); // Hard
               },
-              child: Text('Hard'),
+              child: const Text('Hard'),
             ),
           ],
         ),

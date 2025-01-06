@@ -1,11 +1,6 @@
 import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
 import 'dart:io';
-import 'package:flutter/material.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:archive/archive.dart';
-import 'package:archive/archive_io.dart';
 
 class AudioService {
   static const String BASE_URL = 'https://everyayah.com/data/Hudhaify_32kbps/';

@@ -32,7 +32,7 @@ class NotificationService {
       'Review Time',
       'Time to review Page $pageNumber, Ayah $ayahNumber',
       tz.TZDateTime.from(reviewTime, tz.local),
-      NotificationDetails(
+      const NotificationDetails(
         android: AndroidNotificationDetails(
           'srs_reviews',
           'SRS Reviews',

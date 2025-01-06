@@ -1,19 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 import 'package:audioplayers/audioplayers.dart';
 import '../data/surah_data.dart';
 import '../services/srs_scheduler.dart';
 import 'package:shared_preferences/shared_preferences.dart' as shared_prefs;
 import 'package:confetti/confetti.dart';
 import 'dart:math' show pi, Random;
-import 'package:audioplayers/audioplayers.dart' as audio;
 import '../pages/mode_selection_page.dart';
 import '../pages/tutorial_page.dart';
 import '../services/audio_service.dart';
-import 'package:flutter/services.dart';
-import 'package:path_provider/path_provider.dart';
 import 'dart:io';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:firebase_core/firebase_core.dart';
@@ -106,9 +101,9 @@ class MyApp extends StatelessWidget {
       title: 'Qurany Cards Pro',
       theme: ThemeData(
         primarySwatch: Colors.blue,
-        primaryColor: Color(0xFF417D7A),
-        scaffoldBackgroundColor: Color(0xFFF9F9F9),
-        appBarTheme: AppBarTheme(
+        primaryColor: const Color(0xFF417D7A),
+        scaffoldBackgroundColor: const Color(0xFFF9F9F9),
+        appBarTheme: const AppBarTheme(
           backgroundColor: Color(0xFF417D7A),
           elevation: 0,
         ),
@@ -222,11 +217,11 @@ class LanguageSelectionPage extends StatelessWidget {
           child: SingleChildScrollView(
             // Add this wrapper
             child: Padding(
-              padding: EdgeInsets.symmetric(vertical: 20),
+              padding: const EdgeInsets.symmetric(vertical: 20),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
+                  const Text(
                     'Select Your Language',
                     style: TextStyle(
                       fontSize: 24,
@@ -234,52 +229,53 @@ class LanguageSelectionPage extends StatelessWidget {
                       color: Color(0xFF2B4141),
                     ),
                   ),
-                  SizedBox(height: 40),
+                  const SizedBox(height: 40),
                   ...languages.entries.map((entry) {
                     return Padding(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 8, horizontal: 16),
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.white,
-                          foregroundColor: Color(0xFF417D7A),
-                          padding: EdgeInsets.symmetric(
+                          foregroundColor: const Color(0xFF417D7A),
+                          padding: const EdgeInsets.symmetric(
                               horizontal: 32, vertical: 16),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
-                            side:
-                                BorderSide(color: Color(0xFF417D7A), width: 2),
+                            side: const BorderSide(
+                                color: Color(0xFF417D7A), width: 2),
                           ),
-                          minimumSize: Size(double.infinity, 60),
+                          minimumSize: const Size(double.infinity, 60),
                         ),
                         onPressed: () async {
                           final prefs = await shared_prefs.SharedPreferences
                               .getInstance();
                           await prefs.setString(
                               'language', entry.key.toString());
-
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ModeSelectionPage(
-                                selectedLanguage: entry.key,
+                          if (context.mounted) {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ModeSelectionPage(
+                                  selectedLanguage: entry.key,
+                                ),
                               ),
-                            ),
-                          );
+                            );
+                          }
                         },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
                               entry.value['flag'] + ' ' + entry.value['name'],
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: 18,
                                 color: Color(0xFF2B4141),
                               ),
                             ),
                             Text(
                               entry.value['nativeName'],
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: 14,
                                 color: Color(0xFF417D7A),
                               ),
@@ -535,38 +531,39 @@ class _SimpleListState extends State<SimpleList> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('Khatma Progress'),
+        title: const Text('Khatma Progress'),
         content: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
               ListTile(
-                leading: Icon(Icons.group, color: Color(0xFF417D7A)),
+                leading: const Icon(Icons.group, color: Color(0xFF417D7A)),
                 title: Text('Group: ${widget.groupName}'),
                 subtitle:
                     Text('Created by: ${roomDetails?['createdBy'] ?? 'N/A'}'),
               ),
               ListTile(
-                leading: Icon(Icons.calendar_today, color: Color(0xFF417D7A)),
-                title: Text('Started'),
+                leading:
+                    const Icon(Icons.calendar_today, color: Color(0xFF417D7A)),
+                title: const Text('Started'),
                 subtitle: Text(
-                  '${roomDetails?['createdAt']?.toDate().toString() ?? 'N/A'}',
+                  roomDetails?['createdAt']?.toDate().toString() ?? 'N/A',
                 ),
               ),
-              Divider(),
-              Text(
+              const Divider(),
+              const Text(
                 'Members',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
               ),
               ...(roomDetails?['members'] as List? ?? []).map(
                 (member) => ListTile(
-                  leading: Icon(Icons.person_outline),
+                  leading: const Icon(Icons.person_outline),
                   title: Text(member),
                 ),
               ),
-              Divider(),
-              Text(
+              const Divider(),
+              const Text(
                 'Recently Completed Pages',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
               ),
@@ -577,7 +574,7 @@ class _SimpleListState extends State<SimpleList> {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: Text('Close'),
+            child: const Text('Close'),
           ),
         ],
       ),
@@ -590,7 +587,7 @@ class _SimpleListState extends State<SimpleList> {
         .where((e) => e.value['completed'] == true)
         .take(5) // Show last 5 completed pages
         .map((e) => ListTile(
-              leading: Icon(Icons.check_circle, color: Colors.green),
+              leading: const Icon(Icons.check_circle, color: Colors.green),
               title: Text('Page ${e.key}'),
               subtitle: Text(
                 'By: ${e.value['completedBy']}\n${e.value['completedAt']?.toDate().toString() ?? 'N/A'}',
@@ -600,7 +597,7 @@ class _SimpleListState extends State<SimpleList> {
         .toList();
 
     return completedPages.isEmpty
-        ? [Text('No pages completed yet')]
+        ? [const Text('No pages completed yet')]
         : completedPages;
   }
 
@@ -609,10 +606,10 @@ class _SimpleListState extends State<SimpleList> {
       SnackBar(
         content: Text(
           'Page $pageNumber completed successfully! 🎉',
-          style: TextStyle(fontSize: 16),
+          style: const TextStyle(fontSize: 16),
         ),
         backgroundColor: Colors.green,
-        duration: Duration(seconds: 2),
+        duration: const Duration(seconds: 2),
         behavior: SnackBarBehavior.floating,
       ),
     );
@@ -620,12 +617,12 @@ class _SimpleListState extends State<SimpleList> {
 
   // Add this to your build method to show room info
   Widget _buildRoomInfo() {
-    if (!widget.isGroupReading || roomDetails == null) return SizedBox();
+    if (!widget.isGroupReading || roomDetails == null) return const SizedBox();
 
     return Card(
-      margin: EdgeInsets.all(8),
+      margin: const EdgeInsets.all(8),
       child: Padding(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -647,7 +644,7 @@ class _SimpleListState extends State<SimpleList> {
     final surahPages = _getSurahPages();
 
     // Update the special pages reference
-    final Map<int, List<int>> specialPages = SurahData.specialPages;
+    const Map<int, List<int>> specialPages = SurahData.specialPages;
 
     return Scaffold(
       appBar: AppBar(
@@ -655,7 +652,7 @@ class _SimpleListState extends State<SimpleList> {
         actions: [
           // Language Selection Button
           IconButton(
-            icon: Icon(Icons.language, color: Colors.white),
+            icon: const Icon(Icons.language, color: Colors.white),
             tooltip: 'Change Language',
             onPressed: () => Navigator.of(context).pushReplacement(
               MaterialPageRoute(
@@ -665,7 +662,7 @@ class _SimpleListState extends State<SimpleList> {
           ),
           // Tutorial Button
           IconButton(
-            icon: Icon(Icons.help_outline, color: Colors.white),
+            icon: const Icon(Icons.help_outline, color: Colors.white),
             tooltip: 'Tutorial',
             onPressed: () => Navigator.of(context).push(
               MaterialPageRoute(
@@ -677,18 +674,18 @@ class _SimpleListState extends State<SimpleList> {
           ),
           // Feedback Button
           IconButton(
-            icon: Icon(Icons.feedback_outlined, color: Colors.white),
+            icon: const Icon(Icons.feedback_outlined, color: Colors.white),
             tooltip: 'Send Feedback',
             onPressed: () => showDialog(
               context: context,
-              builder: (context) => FeedbackDialog(),
+              builder: (context) => const FeedbackDialog(),
             ),
           ),
           // Existing Group Reading Button
           TextButton.icon(
-            icon: Icon(Icons.menu_book, color: Colors.white),
-            label:
-                Text('Read with Group', style: TextStyle(color: Colors.white)),
+            icon: const Icon(Icons.menu_book, color: Colors.white),
+            label: const Text('Read with Group',
+                style: TextStyle(color: Colors.white)),
             onPressed: () => Navigator.of(context).pushReplacement(
               MaterialPageRoute(
                 builder: (context) => QuranRoomScreen(
@@ -704,7 +701,6 @@ class _SimpleListState extends State<SimpleList> {
         itemCount: 114,
         itemBuilder: (context, index) {
           final surahNum = index + 1;
-          final surahData = _surahInfo[surahNum]!;
           final pages = surahPages[surahNum]!;
 
           // Add special pages to the surah's page list if it's part of a multi-surah page
@@ -727,14 +723,14 @@ class _SimpleListState extends State<SimpleList> {
                     children: [
                       Text(
                         _surahInfo[surahNum]!['name']!,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 16,
                           fontFamily: 'Scheherazade',
                         ),
                       ),
                       // Use cached check for due items
                       if (_hasDueItems(allPages))
-                        Padding(
+                        const Padding(
                           padding: EdgeInsets.only(left: 8),
                           child: Icon(Icons.flag,
                               size: 16, color: Color(0xFF417D7A)),
@@ -743,7 +739,7 @@ class _SimpleListState extends State<SimpleList> {
                   ),
                   Text(
                     _surahInfo[surahNum]!['name_en']!,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 12,
                     ),
                   ),
@@ -756,7 +752,7 @@ class _SimpleListState extends State<SimpleList> {
                   title: Row(
                     children: [
                       Text('صفحة $pageNum'),
-                      SizedBox(width: 8),
+                      const SizedBox(width: 8),
                       if (widget.isGroupReading &&
                           roomDetails != null &&
                           (roomDetails?['pages'] as Map?)?[pageNum.toString()]
@@ -765,7 +761,7 @@ class _SimpleListState extends State<SimpleList> {
                         Expanded(
                           child: Text(
                             '✓ Completed by: ${(roomDetails?['pages'] as Map?)?[pageNum.toString()]?['completedBy'] ?? 'Unknown'}',
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Colors.green,
                               fontSize: 12,
                             ),
@@ -779,7 +775,7 @@ class _SimpleListState extends State<SimpleList> {
                               '${_srsScheduler.getDueItemCounts()[pageNum]}'),
                         ),
                       if (_srsScheduler.hasScheduledReviews(pageNum)) ...[
-                        SizedBox(width: 8),
+                        const SizedBox(width: 8),
                         Expanded(
                           child: Text(
                             'Level: ${_srsScheduler.getLevel(pageNum, _srsScheduler.getFirstScheduledAyah(pageNum))}, next: ${_srsScheduler.getNextReviewDateTime(pageNum)}',
@@ -793,7 +789,7 @@ class _SimpleListState extends State<SimpleList> {
                         ),
                       ],
                       if (multipleSurahs.isNotEmpty) ...[
-                        SizedBox(width: 8),
+                        const SizedBox(width: 8),
                         Text(
                           '(${multipleSurahs.map((s) => _surahInfo[s]!['name']).join(' - ')})',
                           style: TextStyle(
@@ -898,24 +894,20 @@ class _SurahPageState extends State<SurahPage> {
   List<Map<String, dynamic>> _pageAyahs = [];
   List<Map<String, dynamic>> _currentAyahData = [];
   bool _isLoading = false;
-  Map<String, String> _tafsirMap = {};
-  Map<String, String> _translationMap = {};
-  Map<String, List<String>> _pageMapping =
+  final Map<String, List<String>> _pageMapping =
       {}; // Format: 'pageNum': ['surah|ayah', ...]
   late AudioPlayer _audioPlayer;
   bool _isPlaying = false;
   bool _autoPlayEnabled = true;
-  Set<int> _revealedAyahs = {};
   late bool _showFirstWordOnly;
-  Set<int> _partiallyRevealedAyahs = {};
-  Set<int> _fullyRevealedAyahs = {};
+  final Set<int> _partiallyRevealedAyahs = {};
+  final Set<int> _fullyRevealedAyahs = {};
   String? _surahBismillah;
 
   final Map<int, Map<String, dynamic>> _surahInfo = SurahData.surahInfo;
 
-  static Map<int, Set<int>> _forgottenAyahs =
+  static final Map<int, Set<int>> _forgottenAyahs =
       {}; // Store forgotten ayahs by page number
-  int _currentReviewAyah = 1;
   final SRSScheduler _srsScheduler = SRSScheduler();
 
   // Add this property to the state class
@@ -1212,8 +1204,6 @@ class _SurahPageState extends State<SurahPage> {
 
   bool _showClickHint = false;
 
-  final FirebaseService _firebaseService = FirebaseService();
-
   Map<String, dynamic>? roomDetails;
 
   bool _showTajweedMenu = false; // Add this to your state variables
@@ -1230,7 +1220,6 @@ class _SurahPageState extends State<SurahPage> {
     _praisePlayer = AudioPlayer();
 
     // Initialize _currentReviewAyah based on forgotten ayahs
-    _currentReviewAyah = _getForgottenAyahCount();
 
     _loadData().then((_) {
       setState(() {
@@ -1251,11 +1240,6 @@ class _SurahPageState extends State<SurahPage> {
               .indexWhere((ayah) => ayah['surah'] == widget.initialSurah);
           if (firstAyahIndex != -1) {
             _currentAyah = firstAyahIndex + 1;
-            _revealedAyahs = Set.from(_pageAyahs
-                .asMap()
-                .entries
-                .where((entry) => entry.value['surah'] != widget.initialSurah)
-                .map((entry) => entry.key + 1));
           }
         } else if (SurahData.specialPages.containsKey(widget.pageNumber)) {
           _currentAyahData = _pageAyahs;
@@ -1328,18 +1312,19 @@ class _SurahPageState extends State<SurahPage> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('Audio Download'),
-        content: Text('Audio files will be downloaded as you browse pages.'),
+        title: const Text('Audio Download'),
+        content:
+            const Text('Audio files will be downloaded as you browse pages.'),
         actions: [
           TextButton(
-            child: Text('Don\'t Show Again'),
+            child: const Text('Don\'t Show Again'),
             onPressed: () async {
               await prefs.setBool('skipAudioDownload', true);
               Navigator.pop(context);
             },
           ),
           TextButton(
-            child: Text('OK'),
+            child: const Text('OK'),
             onPressed: () => Navigator.pop(context),
           ),
         ],
@@ -1458,24 +1443,24 @@ class _SurahPageState extends State<SurahPage> {
       // ... (keep existing parsing code for tafsir and translation) ...
       // Parse tafsir text
       final tafsirLines = tafsirText.split('\n');
-      Map<String, String> _tafsirMap = {};
+      Map<String, String> tafsirMap = {};
       for (var line in tafsirLines) {
         if (line.trim().isEmpty) continue;
         final parts = line.split('|');
         if (parts.length < 3) continue;
         final key = '${parts[0]}|${parts[1]}';
-        _tafsirMap[key] = parts[2];
+        tafsirMap[key] = parts[2];
       }
 
       // Parse translation text
       final translationLines = translationText.split('\n');
-      Map<String, String> _translationMap = {};
+      Map<String, String> translationMap = {};
       for (var line in translationLines) {
         if (line.trim().isEmpty) continue;
         final parts = line.split('|');
         if (parts.length < 3) continue;
         final key = '${parts[0]}|${parts[1]}';
-        _translationMap[key] = parts[2];
+        translationMap[key] = parts[2];
       }
 
       // Get ayahs for current page
@@ -1493,8 +1478,8 @@ class _SurahPageState extends State<SurahPage> {
           'surah': surah,
           'ayah': ayah,
           'verse': quranMap[mapKey] ?? '',
-          'tafsir': _tafsirMap['$surah|$ayah'] ?? '',
-          'translation': _translationMap['$surah|$ayah'] ?? '',
+          'tafsir': tafsirMap['$surah|$ayah'] ?? '',
+          'translation': translationMap['$surah|$ayah'] ?? '',
         });
       }
 
@@ -1530,7 +1515,7 @@ class _SurahPageState extends State<SurahPage> {
       if (kIsWeb) {
         // For web, stream directly from URL
         final url =
-            'https://everyayah.com/data/Hudhaify_32kbps/${surahStr}${ayahStr}.mp3';
+            'https://everyayah.com/data/Hudhaify_32kbps/$surahStr$ayahStr.mp3';
         await _audioPlayer.play(UrlSource(url));
       } else {
         // For mobile, use local file with download prompt
@@ -1545,23 +1530,23 @@ class _SurahPageState extends State<SurahPage> {
           final shouldDownload = await showDialog<bool>(
             context: context,
             builder: (context) => AlertDialog(
-              title: Text('Audio Download'),
-              content: Text(
+              title: const Text('Audio Download'),
+              content: const Text(
                   'This ayah\'s audio will be downloaded. Would you like to proceed?'),
               actions: [
                 TextButton(
-                  child: Text('Cancel'),
+                  child: const Text('Cancel'),
                   onPressed: () => Navigator.pop(context, false),
                 ),
                 TextButton(
-                  child: Text('Don\'t Show Again'),
+                  child: const Text('Don\'t Show Again'),
                   onPressed: () async {
                     await prefs.setBool('hideAudioDownloadPrompt', true);
                     Navigator.pop(context, true);
                   },
                 ),
                 TextButton(
-                  child: Text('Download'),
+                  child: const Text('Download'),
                   onPressed: () => Navigator.pop(context, true),
                 ),
               ],
@@ -1725,7 +1710,7 @@ class _SurahPageState extends State<SurahPage> {
       setState(() => _isLoading = true); // Show loading
 
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Row(
             children: [
               SizedBox(
@@ -1757,10 +1742,10 @@ class _SurahPageState extends State<SurahPage> {
           SnackBar(
             content: Text(
               'Page ${widget.pageNumber} marked as completed! 🎉',
-              style: TextStyle(fontSize: 16),
+              style: const TextStyle(fontSize: 16),
             ),
             backgroundColor: Colors.green,
-            duration: Duration(seconds: 2),
+            duration: const Duration(seconds: 2),
             behavior: SnackBarBehavior.floating,
           ),
         );
@@ -1854,7 +1839,7 @@ class _SurahPageState extends State<SurahPage> {
 
     print('reviewAyahs: $reviewAyahs');
     // Only refresh if there are more than one review ayahs remaining
-    if (reviewAyahs.isNotEmpty && reviewAyahs.length >= 1) {
+    if (reviewAyahs.isNotEmpty && reviewAyahs.isNotEmpty) {
       _revealAyahsforReview(reviewAyahs);
       _currentAyah = reviewAyahs[0] - 1;
       if (_isPlaying) {
@@ -1916,7 +1901,7 @@ class _SurahPageState extends State<SurahPage> {
           ),
           behavior: SnackBarBehavior.floating,
           backgroundColor: _kidsMode ? Colors.green : Colors.grey,
-          duration: Duration(seconds: 2),
+          duration: const Duration(seconds: 2),
         ),
       );
     });
@@ -1945,10 +1930,10 @@ class _SurahPageState extends State<SurahPage> {
       SnackBar(
         content: Text(
           'Page $pageNumber completed successfully! 🎉',
-          style: TextStyle(fontSize: 16),
+          style: const TextStyle(fontSize: 16),
         ),
         backgroundColor: Colors.green,
-        duration: Duration(seconds: 2),
+        duration: const Duration(seconds: 2),
         behavior: SnackBarBehavior.floating,
       ),
     );
@@ -1956,12 +1941,12 @@ class _SurahPageState extends State<SurahPage> {
 
   // Add this to your build method to show room info
   Widget _buildRoomInfo() {
-    if (!widget.isGroupReading || roomDetails == null) return SizedBox();
+    if (!widget.isGroupReading || roomDetails == null) return const SizedBox();
 
     return Card(
-      margin: EdgeInsets.all(8),
+      margin: const EdgeInsets.all(8),
       child: Padding(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -2033,7 +2018,7 @@ class _SurahPageState extends State<SurahPage> {
                       child: Text(
                         _surahBismillah ??
                             'بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ',
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontFamily: 'Scheherazade',
                           fontSize: 18,
                           color: Colors.white70,
@@ -2068,7 +2053,7 @@ class _SurahPageState extends State<SurahPage> {
                                     : 'Show first word mode deactivated',
                                 textAlign: TextAlign.center,
                               ),
-                              duration: Duration(seconds: 2),
+                              duration: const Duration(seconds: 2),
                               behavior: SnackBarBehavior.floating,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
@@ -2083,7 +2068,7 @@ class _SurahPageState extends State<SurahPage> {
                               ? Icons.play_circle
                               : Icons.play_circle_outline,
                           color: _autoPlayEnabled
-                              ? Color.fromARGB(255, 0, 0, 0)
+                              ? const Color.fromARGB(255, 0, 0, 0)
                               : Colors.grey,
                           size: 24,
                         ),
@@ -2109,7 +2094,7 @@ class _SurahPageState extends State<SurahPage> {
                                     : 'Audio auto-play disabled',
                                 textAlign: TextAlign.center,
                               ),
-                              duration: Duration(seconds: 2),
+                              duration: const Duration(seconds: 2),
                               behavior: SnackBarBehavior.floating,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
@@ -2119,7 +2104,7 @@ class _SurahPageState extends State<SurahPage> {
                         },
                       ),
                       IconButton(
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.arrow_back_ios, // Left arrow for going back
                           color: Color.fromARGB(255, 0, 0, 0),
                           size: 24,
@@ -2154,7 +2139,7 @@ class _SurahPageState extends State<SurahPage> {
                             : null,
                       ),
                       IconButton(
-                        icon: Icon(
+                        icon: const Icon(
                           Icons
                               .arrow_forward_ios, // Right arrow for going forward
                           color: Color(0xFF000000),
@@ -2187,8 +2172,8 @@ class _SurahPageState extends State<SurahPage> {
                 if (_srsScheduler.hasScheduledReviews(widget.pageNumber) ||
                     (_forgottenAyahs[widget.pageNumber]?.isNotEmpty ?? false))
                   Container(
-                    padding: EdgeInsets.all(8),
-                    color: Color(0xFF417D7A).withOpacity(0.1),
+                    padding: const EdgeInsets.all(8),
+                    color: const Color(0xFF417D7A).withOpacity(0.1),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -2229,10 +2214,10 @@ class _SurahPageState extends State<SurahPage> {
                 Expanded(
                   child: Center(
                     child: Container(
-                      constraints: BoxConstraints(
+                      constraints: const BoxConstraints(
                         maxWidth: 800,
                       ),
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         color: Color(0xFFF2F4F3),
                       ),
                       child: _isLoading
@@ -2252,7 +2237,7 @@ class _SurahPageState extends State<SurahPage> {
                                           getHorizontalPadding() * 0.5),
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(15),
-                                        side: BorderSide(
+                                        side: const BorderSide(
                                           color: Color(0xFF4F757C),
                                           width: 3,
                                         ),
@@ -2277,7 +2262,7 @@ class _SurahPageState extends State<SurahPage> {
                                                     .withOpacity(0.2),
                                                 spreadRadius: 2,
                                                 blurRadius: 10,
-                                                offset: Offset(5, 5),
+                                                offset: const Offset(5, 5),
                                               ),
                                             ],
                                           ),
@@ -2303,7 +2288,7 @@ class _SurahPageState extends State<SurahPage> {
                                                           .textTheme
                                                           .titleMedium
                                                           ?.copyWith(
-                                                            color: Color(
+                                                            color: const Color(
                                                                 0xFF2B4141),
                                                             fontSize:
                                                                 getQuranFontSize() *
@@ -2325,12 +2310,12 @@ class _SurahPageState extends State<SurahPage> {
                                                                   : Icons
                                                                       .repeat_one_outlined,
                                                               color: _autoPlayEnabled
-                                                                  ? Color
+                                                                  ? const Color
                                                                       .fromARGB(
-                                                                          255,
-                                                                          0,
-                                                                          0,
-                                                                          0)
+                                                                      255,
+                                                                      0,
+                                                                      0,
+                                                                      0)
                                                                   : Colors.grey,
                                                               size: 20,
                                                             ),
@@ -2351,9 +2336,9 @@ class _SurahPageState extends State<SurahPage> {
                                                                   ? Icons.pause
                                                                   : Icons
                                                                       .play_arrow,
-                                                              color: Color
-                                                                  .fromARGB(255,
-                                                                      0, 0, 0),
+                                                              color: const Color
+                                                                  .fromARGB(
+                                                                  255, 0, 0, 0),
                                                             ),
                                                             onPressed:
                                                                 _isPlaying
@@ -2472,8 +2457,9 @@ class _SurahPageState extends State<SurahPage> {
                                                         getVerticalPadding() *
                                                             2,
                                                     thickness: 1,
-                                                    color: Color(0xFF4F757C)
-                                                        .withOpacity(0.3),
+                                                    color:
+                                                        const Color(0xFF4F757C)
+                                                            .withOpacity(0.3),
                                                   ),
                                                   Text(
                                                     _pageAyahs[(_currentAyah -
@@ -2489,7 +2475,8 @@ class _SurahPageState extends State<SurahPage> {
                                                           getQuranFontSize() *
                                                               0.65,
                                                       height: 1.5,
-                                                      color: Color(0xFF2B4141)
+                                                      color: const Color(
+                                                              0xFF2B4141)
                                                           .withOpacity(0.8),
                                                     ),
                                                     textAlign:
@@ -2516,7 +2503,8 @@ class _SurahPageState extends State<SurahPage> {
                                                           getQuranFontSize() *
                                                               0.65,
                                                       height: 1.5,
-                                                      color: Color(0xFF2B4141)
+                                                      color: const Color(
+                                                              0xFF2B4141)
                                                           .withOpacity(0.8),
                                                       fontStyle:
                                                           FontStyle.italic,
@@ -2540,14 +2528,14 @@ class _SurahPageState extends State<SurahPage> {
                                                                       .visibility_off
                                                                   : Icons
                                                                       .visibility,
-                                                              color: Color(
+                                                              color: const Color(
                                                                   0xFF417D7A),
                                                             ),
                                                             label: Text(
                                                               _showTajweedMenu
                                                                   ? 'Hide Tajweed Menu'
                                                                   : 'Show Tajweed Menu',
-                                                              style: TextStyle(
+                                                              style: const TextStyle(
                                                                   color: Color(
                                                                       0xFF417D7A)),
                                                             ),
@@ -2558,7 +2546,7 @@ class _SurahPageState extends State<SurahPage> {
                                                                   Colors
                                                                       .transparent,
                                                               elevation: 0,
-                                                              side: BorderSide(
+                                                              side: const BorderSide(
                                                                   color: Color(
                                                                       0xFF417D7A),
                                                                   width: 2),
@@ -2590,7 +2578,8 @@ class _SurahPageState extends State<SurahPage> {
                                                                         0;
                                                                 return TextButton
                                                                     .icon(
-                                                                  icon: Icon(
+                                                                  icon:
+                                                                      const Icon(
                                                                     Icons
                                                                         .comment_outlined,
                                                                     color: Color(
@@ -2600,7 +2589,7 @@ class _SurahPageState extends State<SurahPage> {
                                                                   label: Text(
                                                                     'Thoughts : تدبر ($commentCount)',
                                                                     style:
-                                                                        TextStyle(
+                                                                        const TextStyle(
                                                                       color: Color(
                                                                           0xFF417D7A),
                                                                       fontSize:
@@ -2614,13 +2603,14 @@ class _SurahPageState extends State<SurahPage> {
                                                                       borderRadius:
                                                                           BorderRadius.circular(
                                                                               8),
-                                                                      side: BorderSide(
+                                                                      side: const BorderSide(
                                                                           color: Color(
                                                                               0xFF417D7A),
                                                                           width:
                                                                               1),
                                                                     ),
-                                                                    padding: EdgeInsets.symmetric(
+                                                                    padding: const EdgeInsets
+                                                                        .symmetric(
                                                                         horizontal:
                                                                             12,
                                                                         vertical:
@@ -2650,7 +2640,8 @@ class _SurahPageState extends State<SurahPage> {
                                                         ],
                                                       ),
                                                       if (_showTajweedMenu) ...[
-                                                        SizedBox(height: 8),
+                                                        const SizedBox(
+                                                            height: 8),
                                                         Text(
                                                           'Click on any rule to toggle it on/off\nاضغط على أي قاعدة لتشغيلها أو إيقافها',
                                                           textAlign:
@@ -2661,7 +2652,8 @@ class _SurahPageState extends State<SurahPage> {
                                                                 .grey[600],
                                                           ),
                                                         ),
-                                                        SizedBox(height: 16),
+                                                        const SizedBox(
+                                                            height: 16),
                                                         Wrap(
                                                           spacing: 8,
                                                           runSpacing: 8,
@@ -2822,13 +2814,13 @@ class _SurahPageState extends State<SurahPage> {
               ],
             ),
             floatingActionButton: Padding(
-              padding: EdgeInsets.only(bottom: 16.0),
+              padding: const EdgeInsets.only(bottom: 16.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   // Back button
                   Padding(
-                    padding: EdgeInsets.only(left: 32.0),
+                    padding: const EdgeInsets.only(left: 32.0),
                     child: FloatingActionButton.small(
                       heroTag: 'backButton',
                       onPressed: _showPreviousAyah,
@@ -2836,17 +2828,18 @@ class _SurahPageState extends State<SurahPage> {
                       elevation: 0,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
-                        side: BorderSide(color: Color(0xFF417D7A), width: 2),
+                        side: const BorderSide(
+                            color: Color(0xFF417D7A), width: 2),
                       ),
+                      tooltip: getTranslation('previous_ayah'),
                       child: Transform.rotate(
                         angle: pi, // Rotate 180 degrees
-                        child: Icon(
+                        child: const Icon(
                           Icons.refresh, // Changed from arrow_back to refresh
                           color: Color(0xFF417D7A),
                           size: 20,
                         ),
                       ),
-                      tooltip: getTranslation('previous_ayah'),
                     ),
                   ),
                   // Existing buttons
@@ -2859,14 +2852,15 @@ class _SurahPageState extends State<SurahPage> {
                         elevation: 0,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
-                          side: BorderSide(color: Color(0xFF417D7A), width: 2),
+                          side: const BorderSide(
+                              color: Color(0xFF417D7A), width: 2),
                         ),
-                        child: Icon(
+                        tooltip: 'Incorrect - Mark for review',
+                        child: const Icon(
                           Icons.close,
                           color: Color(0xFF417D7A),
                           size: 20,
                         ),
-                        tooltip: 'Incorrect - Mark for review',
                       ),
                       FloatingActionButton.small(
                         heroTag: 'resetReview',
@@ -2875,14 +2869,15 @@ class _SurahPageState extends State<SurahPage> {
                         elevation: 0,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
-                          side: BorderSide(color: Color(0xFF417D7A), width: 2),
+                          side: const BorderSide(
+                              color: Color(0xFF417D7A), width: 2),
                         ),
-                        child: Icon(
+                        tooltip: 'Correct - Remove from review',
+                        child: const Icon(
                           Icons.check,
                           color: Color(0xFF2B4141),
                           size: 20,
                         ),
-                        tooltip: 'Correct - Remove from review',
                       ),
                     ],
                   ),
@@ -2924,46 +2919,47 @@ class _SurahPageState extends State<SurahPage> {
                           case 'birthday':
                             return Path()
                               ..addOval(Rect.fromCircle(
-                                center: Offset(0, 0),
+                                center: const Offset(0, 0),
                                 radius: 2,
                               ));
                           case 'fireworks':
                             return Path()
                               ..addPolygon([
-                                Offset(-2, -2),
-                                Offset(2, -2),
-                                Offset(2, 2),
-                                Offset(-2, 2),
+                                const Offset(-2, -2),
+                                const Offset(2, -2),
+                                const Offset(2, 2),
+                                const Offset(-2, 2),
                               ], true);
                           case 'star':
                             return Path()
                               ..addPolygon([
-                                Offset(0, -3),
-                                Offset(1, -1),
-                                Offset(3, -1),
-                                Offset(1.5, 1),
-                                Offset(2, 3),
-                                Offset(0, 2),
-                                Offset(-2, 3),
-                                Offset(-1.5, 1),
-                                Offset(-3, -1),
-                                Offset(-1, -1),
+                                const Offset(0, -3),
+                                const Offset(1, -1),
+                                const Offset(3, -1),
+                                const Offset(1.5, 1),
+                                const Offset(2, 3),
+                                const Offset(0, 2),
+                                const Offset(-2, 3),
+                                const Offset(-1.5, 1),
+                                const Offset(-3, -1),
+                                const Offset(-1, -1),
                               ], true);
                           case 'diamond':
                             return Path()
                               ..addPolygon([
-                                Offset(0, -3),
-                                Offset(2, 0),
-                                Offset(0, 3),
-                                Offset(-2, 0),
+                                const Offset(0, -3),
+                                const Offset(2, 0),
+                                const Offset(0, 3),
+                                const Offset(-2, 0),
                               ], true);
                           case 'rain':
-                            return Path()..addOval(Rect.fromLTWH(0, 0, 1.5, 4));
+                            return Path()
+                              ..addOval(const Rect.fromLTWH(0, 0, 1.5, 4));
                           case 'spiral':
                             return Path()
                               ..addArc(
                                   Rect.fromCircle(
-                                      center: Offset(0, 0), radius: 3),
+                                      center: const Offset(0, 0), radius: 3),
                                   0,
                                   pi * 1.5);
                           case 'fountain':
@@ -2974,16 +2970,17 @@ class _SurahPageState extends State<SurahPage> {
                           case 'glitter':
                             return Path()
                               ..addOval(Rect.fromCircle(
-                                  center: Offset(0, 0), radius: 1));
+                                  center: const Offset(0, 0), radius: 1));
                           case 'sweep':
                             return Path()
                               ..addArc(
                                   Rect.fromCircle(
-                                      center: Offset(0, 0), radius: 2),
+                                      center: const Offset(0, 0), radius: 2),
                                   0,
                                   pi);
                           default:
-                            return Path()..addRect(Rect.fromLTWH(0, 0, 2, 2));
+                            return Path()
+                              ..addRect(const Rect.fromLTWH(0, 0, 2, 2));
                         }
                       },
                       blastDirectionality: entry.value['type'] == 'birthday'
@@ -2998,7 +2995,7 @@ class _SurahPageState extends State<SurahPage> {
               color: Colors.black54,
               child: InkWell(
                 onTap: _handleFirstClick,
-                child: Center(
+                child: const Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -3033,7 +3030,7 @@ class _SurahPageState extends State<SurahPage> {
         onToggle(!TajweedParser.tajweedColorToggles[key]!);
       },
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
         decoration: BoxDecoration(
           color: TajweedParser.tajweedColorToggles[key]!
               ? color

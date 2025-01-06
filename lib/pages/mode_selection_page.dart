@@ -19,11 +19,11 @@ class _ModeSelectionPageState extends State<ModeSelectionPage> {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
+              const Text(
                 'Select Learning Mode',
                 style: TextStyle(
                   fontSize: 24,
@@ -31,8 +31,8 @@ class _ModeSelectionPageState extends State<ModeSelectionPage> {
                   color: Color(0xFF2B4141),
                 ),
               ),
-              SizedBox(height: 20),
-              Container(
+              const SizedBox(height: 20),
+              SizedBox(
                 height: MediaQuery.of(context).size.height * 0.4,
                 width: double.infinity,
                 child: ClipRRect(
@@ -43,7 +43,7 @@ class _ModeSelectionPageState extends State<ModeSelectionPage> {
                   ),
                 ),
               ),
-              SizedBox(height: 40),
+              const SizedBox(height: 40),
               _buildModeButton(
                 context,
                 title: 'Adult Mode',
@@ -52,7 +52,7 @@ class _ModeSelectionPageState extends State<ModeSelectionPage> {
                 icon: Icons.person,
                 isKidsMode: false,
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               _buildModeButton(
                 context,
                 title: 'Children Mode',
@@ -78,11 +78,11 @@ class _ModeSelectionPageState extends State<ModeSelectionPage> {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         backgroundColor: Colors.white,
-        foregroundColor: Color(0xFF417D7A),
-        padding: EdgeInsets.all(20),
+        foregroundColor: const Color(0xFF417D7A),
+        padding: const EdgeInsets.all(20),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
-          side: BorderSide(color: Color(0xFF417D7A), width: 2),
+          side: const BorderSide(color: Color(0xFF417D7A), width: 2),
         ),
       ),
       onPressed: () async {
@@ -102,20 +102,20 @@ class _ModeSelectionPageState extends State<ModeSelectionPage> {
       child: Row(
         children: [
           Icon(icon, size: 40),
-          SizedBox(width: 16),
+          const SizedBox(width: 16),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   title,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                     color: Color(0xFF2B4141),
                   ),
                 ),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
                 Text(
                   description,
                   style: TextStyle(

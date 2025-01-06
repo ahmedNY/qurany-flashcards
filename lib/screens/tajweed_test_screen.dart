@@ -3,6 +3,8 @@ import 'package:flutter/services.dart';
 import '../services/tajweed_parser.dart';
 
 class TajweedTestScreen extends StatefulWidget {
+  const TajweedTestScreen({super.key});
+
   @override
   _TajweedTestScreenState createState() => _TajweedTestScreenState();
 }
@@ -91,18 +93,18 @@ class _TajweedTestScreenState extends State<TajweedTestScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Tajweed Test'),
+        title: const Text('Tajweed Test'),
       ),
       body: isLoading
-          ? Center(child: CircularProgressIndicator())
+          ? const Center(child: CircularProgressIndicator())
           : SingleChildScrollView(
               child: Padding(
-                padding: EdgeInsets.all(16.0),
+                padding: const EdgeInsets.all(16.0),
                 child: Column(
                   children: [
                     ...verses
                         .map((verse) => Padding(
-                              padding: EdgeInsets.symmetric(vertical: 8.0),
+                              padding: const EdgeInsets.symmetric(vertical: 8.0),
                               child: RichText(
                                 textAlign: TextAlign.center,
                                 textDirection: TextDirection.rtl,
@@ -110,8 +112,8 @@ class _TajweedTestScreenState extends State<TajweedTestScreen> {
                               ),
                             ))
                         .toList(),
-                    SizedBox(height: 40),
-                    Text('Tajweed Rules:',
+                    const SizedBox(height: 40),
+                    const Text('Tajweed Rules:',
                         style: TextStyle(fontWeight: FontWeight.bold)),
                     Wrap(
                       spacing: 12,
@@ -146,7 +148,7 @@ class _TajweedTestScreenState extends State<TajweedTestScreen> {
       message: label,
       triggerMode: TooltipTriggerMode.tap,
       child: Container(
-        margin: EdgeInsets.all(4),
+        margin: const EdgeInsets.all(4),
         width: 24,
         height: 24,
         decoration: BoxDecoration(
@@ -156,7 +158,7 @@ class _TajweedTestScreenState extends State<TajweedTestScreen> {
             BoxShadow(
               color: Colors.black.withOpacity(0.2),
               blurRadius: 2,
-              offset: Offset(0, 1),
+              offset: const Offset(0, 1),
             ),
           ],
         ),

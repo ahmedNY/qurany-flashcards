@@ -5,6 +5,8 @@ import '../data/surah_data.dart';
 import '../widgets/ayah_display.dart';
 
 class ReviewSurahPage extends StatefulWidget {
+  const ReviewSurahPage({super.key});
+
   @override
   _ReviewSurahPageState createState() => _ReviewSurahPageState();
 }
@@ -14,15 +16,15 @@ class _ReviewSurahPageState extends State<ReviewSurahPage> {
   final TextEditingController _ayahController = TextEditingController();
   bool _isLoading = false;
   List<Map<String, dynamic>> _pageAyahs = [];
-  List<Map<String, dynamic>> _currentAyahData = [];
+  final List<Map<String, dynamic>> _currentAyahData = [];
   final AudioPlayer _audioPlayer = AudioPlayer();
-  bool _isPlaying = false;
+  final bool _isPlaying = false;
   int _currentAyah = 1;
   final Map<int, Map<String, dynamic>> _surahInfo = SurahData.surahInfo;
-  Map<String, String> _pageMapping = {};
+  final Map<String, String> _pageMapping = {};
   String? _surahBismillah;
   Set<int> _fullyRevealedAyahs = {};
-  Set<int> _partiallyRevealedAyahs = {};
+  final Set<int> _partiallyRevealedAyahs = {};
   bool _showFirstWordOnly = false;
 
   @override
@@ -116,7 +118,7 @@ class _ReviewSurahPageState extends State<ReviewSurahPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Review Surah'),
+        title: const Text('Review Surah'),
       ),
       body: Column(
         children: [
@@ -128,32 +130,32 @@ class _ReviewSurahPageState extends State<ReviewSurahPage> {
                 Expanded(
                   child: TextField(
                     controller: _pageController,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: 'Page Number',
                       border: OutlineInputBorder(),
                     ),
                     keyboardType: TextInputType.number,
                   ),
                 ),
-                SizedBox(width: 16),
+                const SizedBox(width: 16),
                 Expanded(
                   child: TextField(
                     controller: _ayahController,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: 'Ayah Number',
                       border: OutlineInputBorder(),
                     ),
                     keyboardType: TextInputType.number,
                   ),
                 ),
-                SizedBox(width: 16),
+                const SizedBox(width: 16),
                 ElevatedButton(
                   onPressed: () {
                     final pageNum = int.tryParse(_pageController.text) ?? 1;
                     final ayahNum = int.tryParse(_ayahController.text) ?? 1;
                     _loadData(pageNum, ayahNum);
                   },
-                  child: Text('Load'),
+                  child: const Text('Load'),
                 ),
               ],
             ),
@@ -162,7 +164,7 @@ class _ReviewSurahPageState extends State<ReviewSurahPage> {
           // Display area for ayahs
           Expanded(
             child: _isLoading
-                ? Center(child: CircularProgressIndicator())
+                ? const Center(child: CircularProgressIndicator())
                 : SingleChildScrollView(
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
@@ -220,7 +222,7 @@ class _ReviewSurahPageState extends State<ReviewSurahPage> {
             child: Icon(
                 _showFirstWordOnly ? Icons.visibility_off : Icons.visibility),
           ),
-          SizedBox(width: 16),
+          const SizedBox(width: 16),
           FloatingActionButton(
             onPressed: () {
               setState(() {
@@ -229,7 +231,7 @@ class _ReviewSurahPageState extends State<ReviewSurahPage> {
                 _partiallyRevealedAyahs.clear();
               });
             },
-            child: Icon(Icons.refresh),
+            child: const Icon(Icons.refresh),
           ),
         ],
       ),
